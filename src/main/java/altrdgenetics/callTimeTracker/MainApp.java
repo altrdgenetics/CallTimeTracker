@@ -1,4 +1,4 @@
-package com.altrdgenetics.callTimeTracker;
+package altrdgenetics.callTimeTracker;
 
 import javafx.application.Application;
 import static javafx.application.Application.launch;
@@ -17,7 +17,7 @@ public class MainApp extends Application {
         Scene scene = new Scene(root);
         scene.getStylesheets().add("/styles/Styles.css");
         
-        stage.setTitle("JavaFX and Maven");
+        stage.setTitle("Call Time Tracker");
         stage.setScene(scene);
         stage.show();
     }
