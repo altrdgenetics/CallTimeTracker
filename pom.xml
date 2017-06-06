@@ -25,6 +25,12 @@
             <artifactId>sqlite-jdbc</artifactId>
             <version>3.18.0</version>
         </dependency>
+        <dependency> <!-- closing DB connections safely easily -->
+            <groupId>commons-dbutils</groupId>
+            <artifactId>commons-dbutils</artifactId>
+            <version>1.6</version>
+            <type>jar</type>
+        </dependency>
     </dependencies>
 
     <build>

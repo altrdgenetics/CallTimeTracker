@@ -7,7 +7,7 @@ package altrdgenetics.callTimeTracker;
 
 import altrdgenetics.callTimeTracker.util.AlertDialog;
 import altrdgenetics.callTimeTracker.util.FileUtilities;
-import altrdgenetics.callTimeTracker.util.SQLite;
+import altrdgenetics.callTimeTracker.sql.SQLite;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -25,13 +25,13 @@ public class Stages {
     public void mainStage(Stage stage) {
         FileUtilities.setGlobalDBPath();
 
-        if (!SQLite.checkDatabaseExists(Global.getDBPath(), Global.getDBName())) {
+        if (!SQLite.checkDatabaseExists()) {
             boolean approved = AlertDialog.StaticAlert(1, "New Database",
                     "Database Connection Error",
                     "Unable to connect to the database. "
                     + "Would you like to create a new database.");
             if (approved) {
-                SQLite.createNewDatabase(Global.getDBPath(), Global.getDBName());
+                SQLite.createNewDatabase();
             } else {
                 System.exit(0);
             }
