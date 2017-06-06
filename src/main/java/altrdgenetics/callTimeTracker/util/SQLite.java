@@ -5,6 +5,7 @@
  */
 package altrdgenetics.callTimeTracker.util;
 
+import java.io.File;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -16,8 +17,7 @@ import java.sql.SQLException;
 public class SQLite {
     
     public static void createNewDatabase(String filePath, String fileName) {
- 
-        String url = "jdbc:sqlite:" + filePath + "/" + fileName;
+        String url = "jdbc:sqlite:" + filePath + File.separator + fileName + ".db";
  
         try (Connection conn = DriverManager.getConnection(url)) {
             if (conn != null) {
@@ -28,4 +28,8 @@ public class SQLite {
         }
     }
     
+    public static boolean checkDatabaseExists(String filePath, String fileName) {
+        File dbFile = new File(filePath + File.separator + fileName + ".db");
+        return dbFile.exists();
+    }
 }
