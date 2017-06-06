@@ -22,7 +22,6 @@ public class MainApp extends Application {
                     + "Would you like to create a new database.");
             if (approved) {
                 SQLite.createNewDatabase();
-                
             } else {
                 System.exit(0);
             }

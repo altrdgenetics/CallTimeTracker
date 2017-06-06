@@ -1,16 +1,20 @@
 package altrdgenetics.callTimeTracker.sceneController;
 
+import altrdgenetics.callTimeTracker.Stages;
 import altrdgenetics.callTimeTracker.util.StringUtilities;
 import java.net.URL;
 import java.util.ResourceBundle;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.MenuItem;
+import javafx.stage.Stage;
 
 public class MainWindowSceneController implements Initializable {
+    
+    Stage stage;
     
     @FXML
     private Button RecordButton;
@@ -18,6 +22,8 @@ public class MainWindowSceneController implements Initializable {
     private ComboBox CompanyComboBox;
     @FXML
     private Label TimerLabel;
+    @FXML
+    private MenuItem CompanyMaintenanceMenuItem;
     
     private long callStartTime;
     
@@ -27,7 +33,7 @@ public class MainWindowSceneController implements Initializable {
     }    
     
     @FXML
-    private void handleCallButtonAction(ActionEvent event) {
+    private void handleCallButtonAction() {
         switch (RecordButton.getText()) {
             case "Start Call":
                 startCall();
@@ -37,6 +43,15 @@ public class MainWindowSceneController implements Initializable {
                 break;
             
         }
+    }
+    @FXML
+    private void handleCompanyMaintenanceMenuItem(){
+        Stages stageClass = new Stages();
+        stageClass.companyMaintenaceStage(stage);
+    }
+    
+    public void loadDefaults(Stage stagePassed){
+        stage = stagePassed;
     }
     
     private void startCall() {
