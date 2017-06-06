@@ -5,9 +5,6 @@
  */
 package altrdgenetics.callTimeTracker;
 
-import altrdgenetics.callTimeTracker.util.AlertDialog;
-import altrdgenetics.callTimeTracker.util.FileUtilities;
-import altrdgenetics.callTimeTracker.sql.SQLite;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -23,20 +20,6 @@ import javafx.stage.Stage;
 public class Stages {
 
     public void mainStage(Stage stage) {
-        FileUtilities.setGlobalDBPath();
-
-        if (!SQLite.checkDatabaseExists()) {
-            boolean approved = AlertDialog.StaticAlert(1, "New Database",
-                    "Database Connection Error",
-                    "Unable to connect to the database. "
-                    + "Would you like to create a new database.");
-            if (approved) {
-                SQLite.createNewDatabase();
-            } else {
-                System.exit(0);
-            }
-        }
-
         try {
             Parent root = FXMLLoader.load(getClass().getResource("/fxml/MainWindow.fxml"));
 
