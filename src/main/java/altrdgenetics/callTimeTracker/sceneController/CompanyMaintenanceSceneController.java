@@ -8,14 +8,17 @@ package altrdgenetics.callTimeTracker.sceneController;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.Initializable;
+import javafx.stage.Stage;
 
 /**
  * FXML Controller class
  *
  * @author User
  */
-public class CompanyMaintenanceWindowController implements Initializable {
+public class CompanyMaintenanceSceneController implements Initializable {
 
+    Stage stage;
+    
     /**
      * Initializes the controller class.
      * @param url
@@ -23,7 +26,11 @@ public class CompanyMaintenanceWindowController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        
     }    
-    
+        
+    public void loadDefaults(Stage stagePassed){
+        stage = stagePassed;
+        stage.setTitle("Company Maintenance");
+    }
 }

@@ -1,9 +1,11 @@
 package altrdgenetics.callTimeTracker.sceneController;
 
+import altrdgenetics.callTimeTracker.Global;
 import altrdgenetics.callTimeTracker.Stages;
 import altrdgenetics.callTimeTracker.util.StringUtilities;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -11,6 +13,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 
 public class MainWindowSceneController implements Initializable {
     
@@ -50,10 +53,15 @@ public class MainWindowSceneController implements Initializable {
         stageClass.companyMaintenaceStage(stage);
     }
     
-    public void loadDefaults(Stage stagePassed){
+    public void loadDefaults(Stage stagePassed) {
         stage = stagePassed;
+        stage.setTitle("Call Time Tracker");
+        stage.setOnCloseRequest((WindowEvent t) -> {
+            Platform.exit();
+            System.exit(0);
+        });
     }
-    
+
     private void startCall() {
         callStartTime = System.currentTimeMillis();    
         TimerLabel.setText("");
