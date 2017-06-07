@@ -5,7 +5,7 @@
  */
 package altrdgenetics.callTimeTracker;
 
-import altrdgenetics.callTimeTracker.model.CompanyModel;
+import altrdgenetics.callTimeTracker.model.sql.CompanyModel;
 import altrdgenetics.callTimeTracker.sceneController.*;
 import java.io.IOException;
 import java.util.logging.Level;

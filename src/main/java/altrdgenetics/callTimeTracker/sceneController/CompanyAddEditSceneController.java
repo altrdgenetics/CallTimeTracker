@@ -6,7 +6,7 @@
 package altrdgenetics.callTimeTracker.sceneController;
 
 import altrdgenetics.callTimeTracker.Global;
-import altrdgenetics.callTimeTracker.model.CompanyModel;
+import altrdgenetics.callTimeTracker.model.sql.CompanyModel;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.Initializable;

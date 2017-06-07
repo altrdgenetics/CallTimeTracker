@@ -24,6 +24,7 @@ public class SQLiteCreateTables {
         //companies
         String sql = "CREATE TABLE IF NOT EXISTS company ("
                 + "id integer PRIMARY KEY,"
+                + "active boolean NOT NULL,"
                 + "name text NOT NULL"
                 + ");";
         
