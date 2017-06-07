@@ -29,7 +29,7 @@ public class MainApp extends Application {
         
         //Run the Application
         if (approved){
-            Stages window = new Stages();
+            StageLauncher window = new StageLauncher();
             window.mainStage(stage);
         }
     }

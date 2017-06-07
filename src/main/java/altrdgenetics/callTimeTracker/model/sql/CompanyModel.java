@@ -12,6 +12,7 @@ package altrdgenetics.callTimeTracker.model.sql;
 public class CompanyModel {
     
     private int id;
+    private boolean active;
     private String name;
 
     public int getId() {
@@ -22,6 +23,14 @@ public class CompanyModel {
         this.id = id;
     }
 
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
+    }
+    
     public String getName() {
         return name;
     }

@@ -1,7 +1,7 @@
 package altrdgenetics.callTimeTracker.sceneController;
 
 import altrdgenetics.callTimeTracker.Global;
-import altrdgenetics.callTimeTracker.Stages;
+import altrdgenetics.callTimeTracker.StageLauncher;
 import altrdgenetics.callTimeTracker.util.StringUtilities;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -49,7 +49,7 @@ public class MainWindowSceneController implements Initializable {
     }
     @FXML
     private void handleCompanyMaintenanceMenuItem(){
-        Stages stageClass = new Stages();
+        StageLauncher stageClass = new StageLauncher();
         stageClass.companyMaintenaceStage(stage);
     }
     

@@ -5,7 +5,7 @@
  */
 package altrdgenetics.callTimeTracker.sceneController;
 
-import altrdgenetics.callTimeTracker.Stages;
+import altrdgenetics.callTimeTracker.StageLauncher;
 import altrdgenetics.callTimeTracker.model.sql.CompanyModel;
 import altrdgenetics.callTimeTracker.model.table.CompanyMaintenanceTableModel;
 import altrdgenetics.callTimeTracker.sql.SQLiteActiveStatus;
@@ -15,8 +15,10 @@ import java.util.ResourceBundle;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TableView.TableViewSelectionModel;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.CheckBoxTableCell;
 import javafx.scene.input.MouseEvent;
@@ -33,6 +35,10 @@ public class CompanyMaintenanceSceneController implements Initializable {
 
     @FXML
     private TextField searchTextField;
+    @FXML
+    private Button editButton;
+    @FXML
+    private Button closeButton;
     @FXML
     private TableView<CompanyMaintenanceTableModel> searchTable;
     @FXML
@@ -59,8 +65,7 @@ public class CompanyMaintenanceSceneController implements Initializable {
                 if (cell.getIndex() > -1) {
                     checkboxlistener(cell.getIndex());
                 }
-            }
-            );
+            });
             return cell;
         });
         companyColumn.setCellValueFactory(cellData -> cellData.getValue().getCompanyName());
@@ -95,19 +100,24 @@ public class CompanyMaintenanceSceneController implements Initializable {
     }
     
     @FXML
+    private void handleClose() {
+        stage.close();
+    }
+    
+    @FXML
     private void tableListener(MouseEvent event) {
         CompanyMaintenanceTableModel row = searchTable.getSelectionModel().getSelectedItem();
 
         if (row != null) {
             if (event.getClickCount() >= 2) {
-                editCompanyButtonAction();
+                editCompanyButtonAction();                
             }
         }
     }
 
     @FXML
     private void addNewCompanyButtonAction() {
-        Stages stageClass = new Stages();
+        StageLauncher stageClass = new StageLauncher();
         stageClass.companyAddEditStage(stage, null);
         search();
     }
@@ -115,7 +125,7 @@ public class CompanyMaintenanceSceneController implements Initializable {
     @FXML
     private void editCompanyButtonAction() {
         CompanyMaintenanceTableModel row = searchTable.getSelectionModel().getSelectedItem();
-        Stages stageClass = new Stages();
+        StageLauncher stageClass = new StageLauncher();
         stageClass.companyAddEditStage(stage, (CompanyModel) row.getID().getValue());
         search();
     }

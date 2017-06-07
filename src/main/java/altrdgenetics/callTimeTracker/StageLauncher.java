@@ -20,7 +20,7 @@ import javafx.stage.Stage;
  *
  * @author User
  */
-public class Stages {
+public class StageLauncher {
 
     public void mainStage(Stage stage) {
         try {
@@ -35,7 +35,7 @@ public class Stages {
             stage.show();
 
         } catch (IOException ex) {
-            Logger.getLogger(Stages.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(StageLauncher.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -54,25 +54,26 @@ public class Stages {
 
             stage.show();
         } catch (IOException ex) {
-            Logger.getLogger(Stages.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(StageLauncher.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
     public void companyAddEditStage(Stage stagePassed, CompanyModel companyObjectPassed) {
         Stage stage = new Stage();
-        try {            
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/CompanyAddEditScene.fxml"));
+        try { 
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("/fxml/CompanyAddEditScene.fxml"));
             Scene scene = new Scene(loader.load());
             stage.initModality(Modality.WINDOW_MODAL);
             stage.initOwner(stagePassed);
             stage.setScene(scene);
-            
-            CompanyAddEditSceneController controller = loader.<CompanyAddEditSceneController>getController();
-            controller.loadDefaults(stage, companyObjectPassed); 
-                        
+
+            CompanyAddEditSceneController controller = loader.getController();
+            controller.loadDefaults(stage, companyObjectPassed);
+
             stage.show();
         } catch (IOException ex) {
-            Logger.getLogger(Stages.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(StageLauncher.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 }
