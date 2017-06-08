@@ -18,7 +18,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.TableView.TableViewSelectionModel;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.CheckBoxTableCell;
 import javafx.scene.input.MouseEvent;
@@ -57,7 +56,8 @@ public class CompanyMaintenanceSceneController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         //Setup Table
-        iDColumn.setCellValueFactory(cellData -> cellData.getValue().getID());
+        searchTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+        iDColumn.setCellValueFactory(cellData -> cellData.getValue().getObject());        
         activeColumn.setCellValueFactory(cellData -> cellData.getValue().checkedProperty());
         activeColumn.setCellFactory((TableColumn<CompanyMaintenanceTableModel, Boolean> param) -> {
             CheckBoxTableCell cell = new CheckBoxTableCell<>();
@@ -80,7 +80,7 @@ public class CompanyMaintenanceSceneController implements Initializable {
     private void checkboxlistener(int cellIndex) {
         CompanyMaintenanceTableModel row = searchTable.getItems().get(cellIndex);
         if (row != null) {
-            CompanyModel item = (CompanyModel) row.getID().getValue();
+            CompanyModel item = (CompanyModel) row.getObject().getValue();
             SQLiteActiveStatus.setActive("Company", item.getId(), row.getChecked());
         }
     }
@@ -126,7 +126,7 @@ public class CompanyMaintenanceSceneController implements Initializable {
     private void editCompanyButtonAction() {
         CompanyMaintenanceTableModel row = searchTable.getSelectionModel().getSelectedItem();
         StageLauncher stageClass = new StageLauncher();
-        stageClass.companyAddEditStage(stage, (CompanyModel) row.getID().getValue());
+        stageClass.companyAddEditStage(stage, (CompanyModel) row.getObject().getValue());
         search();
     }
     

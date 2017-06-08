@@ -33,6 +33,7 @@ public class SQLiteActiveStatus {
         } catch (SQLException ex) {
             Logger.getLogger(SQLiteCompany.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
+            System.out.println("Updated " + table + ": " + id + " active status to " + active);
             DbUtils.closeQuietly(ps);
             DbUtils.closeQuietly(conn);
         }

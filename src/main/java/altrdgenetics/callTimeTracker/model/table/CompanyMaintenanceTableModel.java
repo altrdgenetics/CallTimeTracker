@@ -5,6 +5,7 @@
  */
 package altrdgenetics.callTimeTracker.model.table;
 
+import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleObjectProperty;
@@ -17,22 +18,18 @@ import javafx.beans.property.StringProperty;
  */
 public class CompanyMaintenanceTableModel {
     
-    public ObjectProperty ID;
-    public SimpleBooleanProperty active;
-    public StringProperty companyName;
+    public ObjectProperty object = new SimpleObjectProperty(null);
+    public BooleanProperty active = new SimpleBooleanProperty(false);;
+    public StringProperty companyName = new SimpleStringProperty(null);
 
-    public CompanyMaintenanceTableModel() {
-        this(null, false, null);
-    }
-    
-    public CompanyMaintenanceTableModel(Object ID, boolean active, String manufacturer) {
-        this.ID = new SimpleObjectProperty(ID);
+    public CompanyMaintenanceTableModel(Object object, boolean active, String manufacturer) {
+        this.object = new SimpleObjectProperty(object);
         this.active = new SimpleBooleanProperty(active);
         this.companyName = new SimpleStringProperty(manufacturer);
     }
 
     //Checkmark Properties
-    public SimpleBooleanProperty checkedProperty() {
+    public BooleanProperty checkedProperty() {
         return this.active;
     }
 
@@ -47,15 +44,15 @@ public class CompanyMaintenanceTableModel {
     
     //Getters and Setters
     
-    public ObjectProperty getID() {
-        return ID;
+    public ObjectProperty getObject() {
+        return object;
     }
 
-    public void setID(ObjectProperty ID) {
-        this.ID = ID;
+    public void setObject(ObjectProperty object) {
+        this.object = object;
     }
 
-    public SimpleBooleanProperty getActive() {
+    public BooleanProperty getActive() {
         return active;
     }
 
