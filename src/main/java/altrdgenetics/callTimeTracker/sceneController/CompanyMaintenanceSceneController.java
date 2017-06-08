@@ -41,7 +41,7 @@ public class CompanyMaintenanceSceneController implements Initializable {
     @FXML
     private TableView<CompanyMaintenanceTableModel> searchTable;
     @FXML
-    private TableColumn<CompanyMaintenanceTableModel, String> iDColumn;
+    private TableColumn<CompanyMaintenanceTableModel, Object> iDColumn;
     @FXML
     private TableColumn<CompanyMaintenanceTableModel, Boolean> activeColumn;
     @FXML

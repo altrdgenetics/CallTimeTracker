@@ -11,9 +11,9 @@ package altrdgenetics.callTimeTracker.model.sql;
  */
 public class CompanyModel {
     
-    private int id;
-    private boolean active;
-    private String name;
+    private int id = 0;
+    private boolean active = false;
+    private String name = null;
 
     public int getId() {
         return id;

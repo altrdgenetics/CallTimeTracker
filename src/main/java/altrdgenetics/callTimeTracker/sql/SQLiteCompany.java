@@ -13,6 +13,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import org.apache.commons.dbutils.DbUtils;
@@ -110,7 +112,7 @@ public class SQLiteCompany {
                     + "name = ? "
                     + "WHERE id = ?";
         try {
-            conn = DriverManager.getConnection(SQLiteConnection.getUrl());
+            
             ps = conn.prepareStatement(sql);
             ps.setBoolean(1, item.isActive());
             ps.setString (2, item.getName());
@@ -124,4 +126,32 @@ public class SQLiteCompany {
         }
     }
     
+    
+    public static List<CompanyModel> getActiveCompanies(){
+        List<CompanyModel> list = new ArrayList();
+        Connection conn = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        String sql = "SELECT * FROM company WHERE active = 1";
+        
+        try {
+            conn = DriverManager.getConnection(SQLiteConnection.getUrl());
+            ps = conn.prepareStatement(sql);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                CompanyModel item = new CompanyModel();
+                item.setId(rs.getInt("id"));
+                item.setActive(rs.getBoolean("active"));
+                item.setName(rs.getString("name"));
+                list.add(item);
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        } finally {
+            DbUtils.closeQuietly(conn);
+            DbUtils.closeQuietly(ps);
+            DbUtils.closeQuietly(rs);
+        }
+        return list;
+    }
 }

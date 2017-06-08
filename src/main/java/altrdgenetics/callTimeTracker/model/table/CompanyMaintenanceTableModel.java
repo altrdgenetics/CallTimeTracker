@@ -19,7 +19,7 @@ import javafx.beans.property.StringProperty;
 public class CompanyMaintenanceTableModel {
     
     public ObjectProperty object = new SimpleObjectProperty(null);
-    public BooleanProperty active = new SimpleBooleanProperty(false);;
+    public BooleanProperty active = new SimpleBooleanProperty(false);
     public StringProperty companyName = new SimpleStringProperty(null);
 
     public CompanyMaintenanceTableModel(Object object, boolean active, String manufacturer) {
