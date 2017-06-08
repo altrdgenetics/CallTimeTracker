@@ -45,14 +45,14 @@ public class StageLauncher {
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(getClass().getResource("/fxml/CompanyMaintenanceScene.fxml"));
             Scene scene = new Scene(loader.load());
-            stage.initModality(Modality.WINDOW_MODAL);
+            stage.initModality(Modality.APPLICATION_MODAL);
             stage.initOwner(stagePassed);
             stage.setScene(scene);
 
             CompanyMaintenanceSceneController controller = loader.getController();
             controller.loadDefaults(stage);
 
-            stage.show();
+            stage.showAndWait();
         } catch (IOException ex) {
             Logger.getLogger(StageLauncher.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -64,14 +64,14 @@ public class StageLauncher {
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(getClass().getResource("/fxml/CompanyAddEditScene.fxml"));
             Scene scene = new Scene(loader.load());
-            stage.initModality(Modality.WINDOW_MODAL);
+            stage.initModality(Modality.APPLICATION_MODAL);
             stage.initOwner(stagePassed);
             stage.setScene(scene);
 
             CompanyAddEditSceneController controller = loader.getController();
             controller.loadDefaults(stage, companyObjectPassed);
 
-            stage.show();
+            stage.showAndWait();
         } catch (IOException ex) {
             Logger.getLogger(StageLauncher.class.getName()).log(Level.SEVERE, null, ex);
         }

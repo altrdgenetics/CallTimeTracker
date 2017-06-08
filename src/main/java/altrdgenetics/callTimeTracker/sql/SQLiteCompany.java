@@ -112,7 +112,7 @@ public class SQLiteCompany {
                     + "name = ? "
                     + "WHERE id = ?";
         try {
-            
+            conn = DriverManager.getConnection(SQLiteConnection.getUrl());
             ps = conn.prepareStatement(sql);
             ps.setBoolean(1, item.isActive());
             ps.setString (2, item.getName());
