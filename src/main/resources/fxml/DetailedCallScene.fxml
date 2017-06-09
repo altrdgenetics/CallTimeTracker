@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.net.URL?>
+<?import com.jfoenix.controls.JFXDatePicker?>
+<?import com.jfoenix.controls.JFXTimePicker?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ButtonBar?>
@@ -14,89 +17,111 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="487.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="altrdgenetics.callTimeTracker.sceneController.CompanyAddEditSceneController">
-   <top>
-      <AnchorPane prefHeight="42.0" prefWidth="600.0" BorderPane.alignment="CENTER">
-         <children>
-            <Label alignment="CENTER" contentDisplay="CENTER" layoutX="316.0" layoutY="15.0" prefHeight="49.0" prefWidth="600.0" text="&lt;&lt;Header Label&gt;&gt;" textAlignment="CENTER" AnchorPane.bottomAnchor="-7.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-               <font>
-                  <Font size="16.0" />
-               </font>
-            </Label>
-         </children></AnchorPane>
-   </top>
-   <center>
-      <GridPane BorderPane.alignment="CENTER">
-        <columnConstraints>
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-        </columnConstraints>
-        <rowConstraints>
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-        </rowConstraints>
-         <children>
-            <Label alignment="CENTER_RIGHT" prefHeight="45.0" prefWidth="210.0" text="Start Time:" GridPane.halignment="RIGHT" GridPane.rowIndex="1">
-               <padding>
-                  <Insets right="8.0" />
-               </padding>
-            </Label>
-            <Label alignment="CENTER_RIGHT" prefHeight="84.0" prefWidth="76.0" text="End Time:" GridPane.halignment="RIGHT" GridPane.rowIndex="2">
-               <padding>
-                  <Insets right="8.0" />
-               </padding>
-            </Label>
-            <Label alignment="CENTER_RIGHT" prefHeight="88.0" prefWidth="76.0" text="Duration:" GridPane.halignment="RIGHT" GridPane.rowIndex="3">
-               <padding>
-                  <Insets right="8.0" />
-               </padding>
-            </Label>
-            <Label alignment="CENTER_RIGHT" prefHeight="110.0" prefWidth="76.0" text="Company:" GridPane.halignment="RIGHT">
-               <padding>
-                  <Insets right="8.0" />
-               </padding>
-            </Label>
-            <Label alignment="CENTER_RIGHT" prefHeight="45.0" prefWidth="182.0" text="Description:" GridPane.halignment="RIGHT" GridPane.rowIndex="4">
-               <padding>
-                  <Insets right="8.0" />
-               </padding>
-            </Label>
-            <ComboBox fx:id="companyComboBox" prefHeight="25.0" prefWidth="412.0" GridPane.columnIndex="1" GridPane.columnSpan="2147483647" />
-            <TextField fx:id="startTime" GridPane.columnIndex="1" GridPane.columnSpan="2147483647" GridPane.rowIndex="1" />
-            <TextField fx:id="endTime" GridPane.columnIndex="1" GridPane.columnSpan="2147483647" GridPane.rowIndex="2" />
-            <TextField fx:id="duration" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-            <TextArea fx:id="description" prefHeight="45.0" prefWidth="371.0" GridPane.columnIndex="1" GridPane.columnSpan="5" GridPane.rowIndex="4" GridPane.rowSpan="3">
-               <GridPane.margin>
-                  <Insets bottom="10.0" top="10.0" />
-               </GridPane.margin>
-            </TextArea>
-         </children>
-         <BorderPane.margin>
-            <Insets left="15.0" right="15.0" />
-         </BorderPane.margin>
-      </GridPane>
-   </center>
-   <bottom>
-      <ButtonBar prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-        <buttons>
-            <Button fx:id="closeButton" mnemonicParsing="false" onAction="#handleClose" text="Close" ButtonBar.buttonData="LEFT" />
-            <Button fx:id="editButton" mnemonicParsing="false" onAction="#editButtonAction" text="Save" ButtonBar.buttonData="RIGHT" />
-        </buttons>
-         <BorderPane.margin>
-            <Insets top="10.0" />
-         </BorderPane.margin>
-         <padding>
-            <Insets bottom="10.0" left="15.0" right="15.0" top="10.0" />
-         </padding>
-      </ButtonBar>
-   </bottom>
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="487.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="altrdgenetics.callTimeTracker.sceneController.DetailedCallAddEditSceneController">
+    <stylesheets>
+        <URL value="@/styles/Styles.css" />
+    </stylesheets>
+    <top>
+        <AnchorPane prefHeight="42.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+            <children>
+                <Label fx:id="headerLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="316.0" layoutY="15.0" prefHeight="49.0" prefWidth="600.0" text="&lt;&lt;Header Label&gt;&gt;" textAlignment="CENTER" AnchorPane.bottomAnchor="-7.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                    <font>
+                        <Font size="16.0" />
+                    </font>
+                </Label>
+            </children>
+        </AnchorPane>
+    </top>
+    <center>
+        <GridPane BorderPane.alignment="CENTER">
+            <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            </columnConstraints>
+            <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            </rowConstraints>
+            <children>
+                <Label alignment="CENTER_RIGHT" prefHeight="45.0" prefWidth="210.0" text="Start Time:" GridPane.halignment="RIGHT" GridPane.rowIndex="1">
+                    <padding>
+                        <Insets right="8.0" />
+                    </padding>
+                </Label>
+                <Label alignment="CENTER_RIGHT" prefHeight="84.0" prefWidth="76.0" text="End Time:" GridPane.halignment="RIGHT" GridPane.rowIndex="2">
+                    <padding>
+                        <Insets right="8.0" />
+                    </padding>
+                </Label>
+                <Label alignment="CENTER_RIGHT" prefHeight="88.0" prefWidth="76.0" text="Duration:" GridPane.halignment="RIGHT" GridPane.rowIndex="3">
+                    <padding>
+                        <Insets right="8.0" />
+                    </padding>
+                </Label>
+                <Label alignment="CENTER_RIGHT" prefHeight="110.0" prefWidth="76.0" text="Company:" GridPane.halignment="RIGHT">
+                    <padding>
+                        <Insets right="8.0" />
+                    </padding>
+                </Label>
+                <Label alignment="CENTER_RIGHT" prefHeight="45.0" prefWidth="182.0" text="Description:" GridPane.halignment="RIGHT" GridPane.rowIndex="4">
+                    <padding>
+                        <Insets right="8.0" />
+                    </padding>
+                </Label>
+                <ComboBox fx:id="companyComboBox" prefHeight="25.0" prefWidth="412.0" GridPane.columnIndex="1" GridPane.columnSpan="2147483647" />
+                <TextField fx:id="duration" disable="true" editable="false" promptText="N/A" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                <TextArea fx:id="description" prefHeight="45.0" prefWidth="371.0" wrapText="true" GridPane.columnIndex="1" GridPane.columnSpan="5" GridPane.rowIndex="4" GridPane.rowSpan="3">
+                    <GridPane.margin>
+                        <Insets bottom="10.0" top="10.0" />
+                    </GridPane.margin>
+                </TextArea>
+                <JFXDatePicker fx:id="startDate" defaultColor="BLACK" promptText="Pick Start Date" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="1">
+                    <GridPane.margin>
+                        <Insets right="15.0" />
+                    </GridPane.margin>
+                </JFXDatePicker>
+                <JFXDatePicker fx:id="endDate" defaultColor="BLACK" promptText="Pick End Date" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="2">
+                    <GridPane.margin>
+                        <Insets right="15.0" />
+                    </GridPane.margin>
+                </JFXDatePicker>
+                <JFXTimePicker fx:id="startTime" defaultColor="BLACK" promptText="Pick Start Time" GridPane.columnIndex="3" GridPane.columnSpan="2" GridPane.rowIndex="1">
+                    <GridPane.margin>
+                        <Insets right="15.0" />
+                    </GridPane.margin>
+                </JFXTimePicker>
+                <JFXTimePicker fx:id="endTime" defaultColor="BLACK" promptText="Pick Start Time" GridPane.columnIndex="3" GridPane.columnSpan="2" GridPane.rowIndex="2">
+                    <GridPane.margin>
+                        <Insets right="15.0" />
+                    </GridPane.margin>
+                </JFXTimePicker>
+            </children>
+            <BorderPane.margin>
+                <Insets left="15.0" right="15.0" />
+            </BorderPane.margin>
+        </GridPane>
+    </center>
+    <bottom>
+        <ButtonBar prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+            <buttons>
+                <Button fx:id="closeButton" mnemonicParsing="false" onAction="#handleClose" text="Close" ButtonBar.buttonData="LEFT" />
+                <Button fx:id="editButton" mnemonicParsing="false" onAction="#editButtonAction" text="Save" ButtonBar.buttonData="RIGHT" />
+            </buttons>
+            <BorderPane.margin>
+                <Insets top="10.0" />
+            </BorderPane.margin>
+            <padding>
+                <Insets bottom="10.0" left="15.0" right="15.0" top="10.0" />
+            </padding>
+        </ButtonBar>
+    </bottom>
 </BorderPane>

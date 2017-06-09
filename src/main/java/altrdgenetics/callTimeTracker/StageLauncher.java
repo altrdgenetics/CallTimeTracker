@@ -6,6 +6,7 @@
 package altrdgenetics.callTimeTracker;
 
 import altrdgenetics.callTimeTracker.model.sql.CompanyModel;
+import altrdgenetics.callTimeTracker.model.sql.PhoneCallModel;
 import altrdgenetics.callTimeTracker.sceneController.*;
 import java.io.IOException;
 import java.util.logging.Level;
@@ -70,6 +71,25 @@ public class StageLauncher {
 
             CompanyAddEditSceneController controller = loader.getController();
             controller.loadDefaults(stage, companyObjectPassed);
+
+            stage.showAndWait();
+        } catch (IOException ex) {
+            Logger.getLogger(StageLauncher.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void detailedCallAddEditStage(Stage stagePassed, PhoneCallModel phoneCallObjectPassed) {
+        Stage stage = new Stage();
+        try { 
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("/fxml/DetailedCallScene.fxml"));
+            Scene scene = new Scene(loader.load());
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.initOwner(stagePassed);
+            stage.setScene(scene);
+
+            DetailedCallAddEditSceneController controller = loader.getController();
+            controller.loadDefaults(stage, phoneCallObjectPassed);
 
             stage.showAndWait();
         } catch (IOException ex) {

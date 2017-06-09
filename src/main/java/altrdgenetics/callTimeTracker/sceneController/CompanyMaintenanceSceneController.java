@@ -12,6 +12,7 @@ import altrdgenetics.callTimeTracker.sql.SQLiteActiveStatus;
 import altrdgenetics.callTimeTracker.sql.SQLiteCompany;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.beans.binding.Bindings;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -69,6 +70,9 @@ public class CompanyMaintenanceSceneController implements Initializable {
             return cell;
         });
         companyColumn.setCellValueFactory(cellData -> cellData.getValue().getCompanyName());
+        
+        //Edit Button Listener
+        editButton.disableProperty().bind(Bindings.isEmpty(searchTable.getSelectionModel().getSelectedItems()));
     }
 
     public void loadDefaults(Stage stagePassed) {
@@ -82,6 +86,7 @@ public class CompanyMaintenanceSceneController implements Initializable {
         if (row != null) {
             CompanyModel item = (CompanyModel) row.getObject().getValue();
             SQLiteActiveStatus.setActive("Company", item.getId(), row.getChecked());
+            searchTable.getSelectionModel().clearSelection();
         }
     }
 
@@ -97,6 +102,7 @@ public class CompanyMaintenanceSceneController implements Initializable {
         if (list != null) {
             searchTable.setItems(list);
         }
+        searchTable.getSelectionModel().clearSelection();
     }
     
     @FXML

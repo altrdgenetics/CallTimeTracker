@@ -5,9 +5,15 @@
  */
 package altrdgenetics.callTimeTracker.sceneController;
 
+import altrdgenetics.callTimeTracker.model.sql.CompanyModel;
 import altrdgenetics.callTimeTracker.model.sql.PhoneCallModel;
+import altrdgenetics.callTimeTracker.sql.SQLiteCompany;
+import com.jfoenix.controls.JFXDatePicker;
+import com.jfoenix.controls.JFXTimePicker;
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
+import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -16,6 +22,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import javafx.util.StringConverter;
 
 /**
  * FXML Controller class
@@ -32,9 +39,13 @@ public class DetailedCallAddEditSceneController implements Initializable {
     @FXML
     private ComboBox companyComboBox;
     @FXML
-    private TextField startTime;
+    private JFXDatePicker startDate;
     @FXML
-    private TextField endTime;
+    private JFXDatePicker endDate;
+    @FXML
+    private JFXTimePicker startTime;
+    @FXML
+    private JFXTimePicker endTime;
     @FXML
     private TextField duration;
     @FXML
@@ -51,7 +62,19 @@ public class DetailedCallAddEditSceneController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        //Setup ComboBox
+        StringConverter<CompanyModel> converter = new StringConverter<CompanyModel>() {
+            @Override
+            public String toString(CompanyModel object) {
+                return object.getName();
+            }
+
+            @Override
+            public CompanyModel fromString(String string) {
+                return null;
+            }
+        };
+        companyComboBox.setConverter(converter);
     }    
     
     public void loadDefaults(Stage stagePassed, PhoneCallModel companyObjectPassed){
@@ -59,15 +82,28 @@ public class DetailedCallAddEditSceneController implements Initializable {
         phoneCallObject = companyObjectPassed;
         String title = "Add Phone Call";
         String buttonText = "Add";
-        
-        if (phoneCallObject != null){
-            title = "Detailed Phone Call";
-            buttonText = "Save";
-            loadInformation();
-        }
+        loadCompanyComboBox();
         stage.setTitle(title);
         headerLabel.setText(title);
         editButton.setText(buttonText);
+        
+        if (phoneCallObject != null){
+            title = "Detailed Phone Call";
+            buttonText = "Update";
+            loadInformation();
+            setPanelInformationDisabled(true);
+        }
+    }
+    
+    private void loadCompanyComboBox() {
+        List<CompanyModel> list = SQLiteCompany.getActiveCompanies();
+        
+        companyComboBox.getItems().clear();
+        companyComboBox.getItems().addAll(FXCollections.observableArrayList(new CompanyModel()));
+        
+        for (CompanyModel item : list){
+            companyComboBox.getItems().addAll(item);
+        }
     }
     
     @FXML
@@ -77,12 +113,22 @@ public class DetailedCallAddEditSceneController implements Initializable {
         
     @FXML
     private void editButtonAction() {
-        if ("Save".equals(editButton.getText().trim())){
-            updateInformation();
-        } else if ("Add".equals(editButton.getText().trim())) {
-            insertInformation();
+        if (null != editButton.getText().trim())
+            switch (editButton.getText().trim()) {
+            case "Save":
+                updateInformation();
+                stage.close();
+                break;
+            case "Add":
+                insertInformation();
+                stage.close();
+                break;
+            case "Update":
+                setPanelInformationDisabled(false);
+                break;
+            default:
+                break;
         }
-        stage.close();
     }
     
     private void loadInformation() {
@@ -95,6 +141,15 @@ public class DetailedCallAddEditSceneController implements Initializable {
     
     private void insertInformation() {
         
+    }
+    
+    private void setPanelInformationDisabled(boolean disabled) {
+        companyComboBox.setDisable(disabled);
+        startDate.setDisable(disabled);
+        endDate.setDisable(disabled);
+        startTime.setDisable(disabled);
+        endTime.setDisable(disabled);
+        description.setDisable(disabled);
     }
     
 }

@@ -37,6 +37,8 @@ public class MainWindowSceneController implements Initializable {
     @FXML
     private MenuItem CompanyMaintenanceMenuItem;
     @FXML
+    private MenuItem NewPhoneCallMenuItem;
+    @FXML
     private TableView<CompanyMaintenanceTableModel> mainTable;
     @FXML
     private TableColumn<MainWindowTableModel, Object> objectColumn;
@@ -85,11 +87,19 @@ public class MainWindowSceneController implements Initializable {
                 break;
         }
     }
+    
     @FXML
     private void handleCompanyMaintenanceMenuItem(){
         StageLauncher stageClass = new StageLauncher();
         stageClass.companyMaintenaceStage(stage);
         loadCompanyComboBox();
+    }
+    
+    @FXML
+    private void handleNewPhoneCallMenuItem(){
+        StageLauncher stageClass = new StageLauncher();
+        stageClass.detailedCallAddEditStage(stage, null);
+        loadCallTable();
     }
     
     public void loadDefaults(Stage stagePassed) {
@@ -100,6 +110,7 @@ public class MainWindowSceneController implements Initializable {
             System.exit(0);
         });
         loadCompanyComboBox();
+        loadCallTable();
     }
 
     private void loadCompanyComboBox() {
@@ -111,6 +122,10 @@ public class MainWindowSceneController implements Initializable {
         for (CompanyModel item : list){
             CompanyComboBox.getItems().addAll(item);
         }
+    }
+    
+    private void loadCallTable() {
+        //TODO: pull information from Call Table
     }
     
     private void startCall() {
