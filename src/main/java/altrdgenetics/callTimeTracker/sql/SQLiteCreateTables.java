@@ -29,7 +29,7 @@ public class SQLiteCreateTables {
                 + ");";
         
         //calls
-        sql += " CREATE TABLE IF NOT EXISTS phoneCalls ("
+        sql += " CREATE TABLE IF NOT EXISTS phonecall ("
                 + "id integer PRIMARY KEY,"
                 + "companyid integer NOT NULL,"
                 + "callstarttime DATETIME NOT NULL,"
