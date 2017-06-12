@@ -2,6 +2,7 @@ package altrdgenetics.callTimeTracker.sceneController;
 
 import altrdgenetics.callTimeTracker.StageLauncher;
 import altrdgenetics.callTimeTracker.model.sql.CompanyModel;
+import altrdgenetics.callTimeTracker.model.sql.PhoneCallModel;
 import altrdgenetics.callTimeTracker.model.table.MainWindowTableModel;
 import altrdgenetics.callTimeTracker.sql.SQLiteCompany;
 import altrdgenetics.callTimeTracker.sql.SQLitePhoneCall;
@@ -20,6 +21,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import javafx.util.StringConverter;
@@ -76,6 +78,17 @@ public class MainWindowSceneController implements Initializable {
         };
         CompanyComboBox.setConverter(converter);
     }    
+    
+    @FXML
+    private void tableListener(MouseEvent event) {
+        MainWindowTableModel row = mainTable.getSelectionModel().getSelectedItem();
+
+        if (row != null) {
+            if (event.getClickCount() >= 2) {
+                loadDetailedCallScene();                
+            }
+        }
+    }
     
     @FXML
     private void handleCallButtonAction() {
@@ -148,5 +161,11 @@ public class MainWindowSceneController implements Initializable {
         RecordButton.setText("Start Call");
     }
     
+    private void loadDetailedCallScene(){
+        MainWindowTableModel row = mainTable.getSelectionModel().getSelectedItem();
+        StageLauncher stageClass = new StageLauncher();
+        stageClass.detailedCallAddEditStage(stage, (PhoneCallModel) row.getObject().getValue());
+        loadCallTable();
+    }
     
 }

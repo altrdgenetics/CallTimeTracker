@@ -109,6 +109,7 @@ public class SQLitePhoneCall {
                 item.setId(rs.getInt("id"));
                 item.setActive(rs.getBoolean("active"));
                 item.setCompanyid(rs.getInt("companyid"));
+                item.setCompanyname(rs.getString("name"));
                 item.setCallstarttime(rs.getTimestamp("callstarttime"));
                 item.setCallendtime(rs.getTimestamp("callendtime"));
                 item.setCalldescription(rs.getString("calldescription"));

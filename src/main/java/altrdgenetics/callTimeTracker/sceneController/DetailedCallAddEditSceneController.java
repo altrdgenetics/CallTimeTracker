@@ -14,6 +14,8 @@ import com.jfoenix.controls.JFXDatePicker;
 import com.jfoenix.controls.JFXTimePicker;
 import java.net.URL;
 import java.sql.Timestamp;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
@@ -97,7 +99,6 @@ public class DetailedCallAddEditSceneController implements Initializable {
                         .or(endTimePicker.valueProperty().isNull())
         );
     }
-
     
     public void loadDefaults(Stage stagePassed, PhoneCallModel companyObjectPassed){
         stage = stagePassed;
@@ -153,11 +154,21 @@ public class DetailedCallAddEditSceneController implements Initializable {
         }
     }
     
-    private void loadInformation() {
-
+    private void loadInformation() {       
+        CompanyModel company = new CompanyModel();
+        company.setId(phoneCallObject.getCompanyid());
+        company.setActive(phoneCallObject.isActive());
+        company.setName(phoneCallObject.getCompanyname());
+        
+        companyComboBox.setValue(company);
+        startDatePicker.setValue(phoneCallObject.getCallstarttime().toLocalDateTime().toLocalDate());
+        startTimePicker.setValue(phoneCallObject.getCallstarttime().toLocalDateTime().toLocalTime());
+        endDatePicker.setValue(phoneCallObject.getCallendtime().toLocalDateTime().toLocalDate());
+        endTimePicker.setValue(phoneCallObject.getCallendtime().toLocalDateTime().toLocalTime());
+        descriptionTextarea.setText(phoneCallObject.getCalldescription());
     }
     
-    private void updateInformation() {
+    private void insertInformation() {
         //Get Calculated Values
         CompanyModel company = (CompanyModel) companyComboBox.getValue();
         Timestamp startTime = DateTimeUtilities.generateTimeStamp(startDatePicker.getValue(), startTimePicker.getValue());
@@ -170,9 +181,11 @@ public class DetailedCallAddEditSceneController implements Initializable {
         item.setCallstarttime(startTime);
         item.setCallendtime(endTime);
         item.setCalldescription(descriptionTextarea.getText().trim().equals("") ? null : descriptionTextarea.getText().trim());
+        
+        SQLitePhoneCall.insertPhoneCall(item);
     }
     
-    private void insertInformation() {
+    private void updateInformation() {
         //Get Calculated Values
         CompanyModel company = (CompanyModel) companyComboBox.getValue();
         Timestamp startTime = DateTimeUtilities.generateTimeStamp(startDatePicker.getValue(), startTimePicker.getValue());
