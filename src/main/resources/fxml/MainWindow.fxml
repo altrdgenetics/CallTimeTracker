@@ -63,7 +63,7 @@
             <center>
                 <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                     <children>
-                        <TableView fx:id="mainTable" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0">
+                        <TableView fx:id="mainTable" onMouseClicked="#tableListener" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0">
                      <columns>
                         <TableColumn fx:id="objectColumn" prefWidth="75.0" text="Object" visible="false" />
                         <TableColumn fx:id="startTimeColumn" editable="false" prefWidth="114.0" text="Start Time" />

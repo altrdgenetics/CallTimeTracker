@@ -6,7 +6,7 @@ import altrdgenetics.callTimeTracker.model.sql.PhoneCallModel;
 import altrdgenetics.callTimeTracker.model.table.MainWindowTableModel;
 import altrdgenetics.callTimeTracker.sql.SQLiteCompany;
 import altrdgenetics.callTimeTracker.sql.SQLitePhoneCall;
-import altrdgenetics.callTimeTracker.util.StringUtilities;
+import altrdgenetics.callTimeTracker.util.DateTimeUtilities;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -155,7 +155,7 @@ public class MainWindowSceneController implements Initializable {
     
     private void endCall() {
         long callEndTime = System.currentTimeMillis();
-        TimerLabel.setText(StringUtilities.convertLongToTime(callEndTime - callStartTime));
+        TimerLabel.setText(DateTimeUtilities.convertLongToTime(callEndTime - callStartTime));
         
         //Record call To Database
         RecordButton.setText("Start Call");

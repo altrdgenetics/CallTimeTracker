@@ -9,6 +9,7 @@ import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.Calendar;
+import java.util.concurrent.TimeUnit;
 
 /**
  *
@@ -28,6 +29,22 @@ public class DateTimeUtilities {
         cal.set(Calendar.MILLISECOND, 0);
         
         return new Timestamp(cal.getTimeInMillis());
+    }
+    
+    /**
+     * converts MILLISECONDS to [ (HR):(MIN):(SEC) ] format
+     *
+     * @param millis long
+     * @return String of duration
+     */
+    public static String convertLongToTime(long millis) {
+        String duration = String.format("%02d:%02d:%02d",
+                TimeUnit.MILLISECONDS.toHours(millis),
+                TimeUnit.MILLISECONDS.toMinutes(millis)
+                - TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS.toHours(millis)),
+                TimeUnit.MILLISECONDS.toSeconds(millis)
+                - TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(millis)));
+        return duration.trim();
     }
     
 }

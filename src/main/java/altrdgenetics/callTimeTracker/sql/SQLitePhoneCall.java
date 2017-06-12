@@ -5,8 +5,10 @@
  */
 package altrdgenetics.callTimeTracker.sql;
 
+import altrdgenetics.callTimeTracker.Global;
 import altrdgenetics.callTimeTracker.model.sql.PhoneCallModel;
 import altrdgenetics.callTimeTracker.model.table.MainWindowTableModel;
+import altrdgenetics.callTimeTracker.util.DateTimeUtilities;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -96,7 +98,8 @@ public class SQLitePhoneCall {
         Connection conn = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
-        String sql = "SELECT phonecall.*, company.name FROM phonecall INNER JOIN company ON "
+        String sql = "SELECT phonecall.*, company.name FROM phonecall "
+                + "INNER JOIN company ON "
                 + "phonecall.companyid = company.id "
                 + "WHERE phonecall.active = 1";
 
@@ -105,6 +108,7 @@ public class SQLitePhoneCall {
             ps = conn.prepareStatement(sql);
             rs = ps.executeQuery();
             while (rs.next()) {
+                //create Object Model
                 PhoneCallModel item = new PhoneCallModel();
                 item.setId(rs.getInt("id"));
                 item.setActive(rs.getBoolean("active"));
@@ -114,13 +118,16 @@ public class SQLitePhoneCall {
                 item.setCallendtime(rs.getTimestamp("callendtime"));
                 item.setCalldescription(rs.getString("calldescription"));
 
+                long timeDiff = (item.getCallendtime().getTime()) - (item.getCallstarttime().getTime());
+                
+                
                 list.add(
                         new MainWindowTableModel(
                                 item, 
-                                rs.getString("callstarttime"), 
-                                rs.getString("name"), 
-                                rs.getString("calldescription"), 
-                                "0"
+                                Global.getMmddyyyyhhmma().format(item.getCallstarttime()), 
+                                item.getCompanyname(), 
+                                item.getCalldescription(), 
+                                DateTimeUtilities.convertLongToTime(timeDiff)
                         ));
             }
         } catch (SQLException ex) {
