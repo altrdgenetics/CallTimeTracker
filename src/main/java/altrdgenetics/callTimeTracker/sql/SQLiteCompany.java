@@ -55,7 +55,7 @@ public class SQLiteCompany {
                 item.setId(rs.getInt("id"));
                 item.setActive(rs.getBoolean("active"));
                 item.setName(rs.getString("name"));
-                                
+
                 list.add(
                         new CompanyMaintenanceTableModel(
                                 item,
@@ -89,7 +89,7 @@ public class SQLiteCompany {
             ps.setBoolean(1, item.isActive());
             ps.setString(2, item.getName());
             ps.executeUpdate();
-            
+
             ResultSet newRow = ps.getGeneratedKeys();
             if (newRow.next()) {
                 return newRow.getInt(1);
@@ -106,11 +106,11 @@ public class SQLiteCompany {
     public static void updateCompanyInfoByID(CompanyModel item) {
         Connection conn = null;
         PreparedStatement ps = null;
-        
+
         String sql = "UPDATE company SET "
-                    + "active = ?, "
-                    + "name = ? "
-                    + "WHERE id = ?";
+                + "active = ?, "
+                + "name = ? "
+                + "WHERE id = ?";
         try {
             conn = DriverManager.getConnection(SQLiteConnection.getUrl());
             ps = conn.prepareStatement(sql);
@@ -125,15 +125,14 @@ public class SQLiteCompany {
             DbUtils.closeQuietly(conn);
         }
     }
-    
-    
-    public static List<CompanyModel> getActiveCompanies(){
+
+    public static List<CompanyModel> getActiveCompanies() {
         List<CompanyModel> list = new ArrayList();
         Connection conn = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
         String sql = "SELECT * FROM company WHERE active = 1";
-        
+
         try {
             conn = DriverManager.getConnection(SQLiteConnection.getUrl());
             ps = conn.prepareStatement(sql);

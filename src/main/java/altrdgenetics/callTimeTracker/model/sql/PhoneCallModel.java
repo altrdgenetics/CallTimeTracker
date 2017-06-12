@@ -14,6 +14,7 @@ import java.sql.Timestamp;
 public class PhoneCallModel {
     private int id;
     private int companyid;
+    private boolean active;
     private Timestamp callstarttime;
     private Timestamp callendtime;
     private String calldescription;
@@ -32,6 +33,14 @@ public class PhoneCallModel {
 
     public void setCompanyid(int companyid) {
         this.companyid = companyid;
+    }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
     }
 
     public Timestamp getCallstarttime() {

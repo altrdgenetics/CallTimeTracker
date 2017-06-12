@@ -22,24 +22,28 @@ public class SQLiteCreateTables {
         PreparedStatement ps = null;
 
         //companies
-        String sql = "CREATE TABLE IF NOT EXISTS company ("
-                + "id integer PRIMARY KEY,"
-                + "active boolean NOT NULL,"
-                + "name text NOT NULL"
-                + ");";
-        
+        String sqlCompany = "CREATE TABLE IF NOT EXISTS company ("
+                + "id integer PRIMARY KEY, "
+                + "active boolean NOT NULL, "
+                + "name text NOT NULL "
+                + "); ";
+                
         //calls
-        sql += " CREATE TABLE IF NOT EXISTS phonecall ("
-                + "id integer PRIMARY KEY,"
-                + "companyid integer NOT NULL,"
-                + "callstarttime DATETIME NOT NULL,"
-                + "callendtime DATETIME NOT NULL,"
-                + "calldescription text NULL"
-                + ");";
+        String sqlPhoneCall = "CREATE TABLE IF NOT EXISTS phonecall ("
+                + "id integer PRIMARY KEY, "
+                + "active boolean NOT NULL, "
+                + "companyid integer NOT NULL, "
+                + "callstarttime DATETIME NOT NULL, "
+                + "callendtime DATETIME NOT NULL, "
+                + "calldescription text NULL "
+                + "); ";
 
         try {
             conn = DriverManager.getConnection(SQLiteConnection.getUrl());
-            ps = conn.prepareStatement(sql);
+            ps = conn.prepareStatement(sqlCompany);
+            ps.execute();
+            
+            ps = conn.prepareStatement(sqlPhoneCall);
             ps.execute();
 
         } catch (SQLException e) {

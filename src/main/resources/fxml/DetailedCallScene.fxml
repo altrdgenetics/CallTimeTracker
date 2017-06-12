@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.net.URL?>
 <?import com.jfoenix.controls.JFXDatePicker?>
 <?import com.jfoenix.controls.JFXTimePicker?>
+<?import java.net.URL?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ButtonBar?>
@@ -78,28 +78,28 @@
                     </padding>
                 </Label>
                 <ComboBox fx:id="companyComboBox" prefHeight="25.0" prefWidth="412.0" GridPane.columnIndex="1" GridPane.columnSpan="2147483647" />
-                <TextField fx:id="duration" disable="true" editable="false" promptText="N/A" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                <TextArea fx:id="description" prefHeight="45.0" prefWidth="371.0" wrapText="true" GridPane.columnIndex="1" GridPane.columnSpan="5" GridPane.rowIndex="4" GridPane.rowSpan="3">
+                <TextField fx:id="durationTextField" disable="true" editable="false" promptText="N/A" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                <TextArea fx:id="descriptionTextarea" prefHeight="45.0" prefWidth="371.0" wrapText="true" GridPane.columnIndex="1" GridPane.columnSpan="5" GridPane.rowIndex="4" GridPane.rowSpan="3">
                     <GridPane.margin>
                         <Insets bottom="10.0" top="10.0" />
                     </GridPane.margin>
                 </TextArea>
-                <JFXDatePicker fx:id="startDate" defaultColor="BLACK" promptText="Pick Start Date" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="1">
+                <JFXDatePicker fx:id="startDatePicker" defaultColor="#2196f3" promptText="Pick Start Date" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="1">
                     <GridPane.margin>
                         <Insets right="15.0" />
                     </GridPane.margin>
                 </JFXDatePicker>
-                <JFXDatePicker fx:id="endDate" defaultColor="BLACK" promptText="Pick End Date" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="2">
+                <JFXDatePicker fx:id="endDatePicker" defaultColor="#2196f3" promptText="Pick End Date" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="2">
                     <GridPane.margin>
                         <Insets right="15.0" />
                     </GridPane.margin>
                 </JFXDatePicker>
-                <JFXTimePicker fx:id="startTime" defaultColor="BLACK" promptText="Pick Start Time" GridPane.columnIndex="3" GridPane.columnSpan="2" GridPane.rowIndex="1">
+                <JFXTimePicker fx:id="startTimePicker" defaultColor="#2196f3" promptText="Pick Start Time" GridPane.columnIndex="3" GridPane.columnSpan="2" GridPane.rowIndex="1">
                     <GridPane.margin>
                         <Insets right="15.0" />
                     </GridPane.margin>
                 </JFXTimePicker>
-                <JFXTimePicker fx:id="endTime" defaultColor="BLACK" promptText="Pick Start Time" GridPane.columnIndex="3" GridPane.columnSpan="2" GridPane.rowIndex="2">
+                <JFXTimePicker fx:id="endTimePicker" defaultColor="#2196f3" promptText="Pick Start Time" GridPane.columnIndex="3" GridPane.columnSpan="2" GridPane.rowIndex="2">
                     <GridPane.margin>
                         <Insets right="15.0" />
                     </GridPane.margin>

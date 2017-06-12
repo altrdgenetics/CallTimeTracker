@@ -5,6 +5,7 @@
  */
 package altrdgenetics.callTimeTracker;
 
+import java.text.SimpleDateFormat;
 import javafx.scene.Parent;
 import javafx.stage.Stage;
 
@@ -18,6 +19,9 @@ public class Global {
     private static final String DBName = "CallLogDB";
     private static Parent root;    
     private static Stage mainPanel;
+    private static final SimpleDateFormat mmddyyyyhhmma = new SimpleDateFormat("MM/dd/yyyy hh:mm:ss a");
+    private static final SimpleDateFormat mmddyyyy = new SimpleDateFormat("MM/dd/yyyy");
+    private static final SimpleDateFormat hhmma = new SimpleDateFormat("hh:mm a");
 
     public static String getDBPath() {
         return DBPath;
@@ -46,5 +50,17 @@ public class Global {
     public static void setMainPanel(Stage mainPanel) {
         Global.mainPanel = mainPanel;
     }
-        
+
+    public static SimpleDateFormat getMmddyyyyhhmma() {
+        return mmddyyyyhhmma;
+    }
+
+    public static SimpleDateFormat getMmddyyyy() {
+        return mmddyyyy;
+    }
+
+    public static SimpleDateFormat getHhmma() {
+        return hhmma;
+    }
+    
 }

@@ -2,15 +2,16 @@ package altrdgenetics.callTimeTracker.sceneController;
 
 import altrdgenetics.callTimeTracker.StageLauncher;
 import altrdgenetics.callTimeTracker.model.sql.CompanyModel;
-import altrdgenetics.callTimeTracker.model.table.CompanyMaintenanceTableModel;
 import altrdgenetics.callTimeTracker.model.table.MainWindowTableModel;
 import altrdgenetics.callTimeTracker.sql.SQLiteCompany;
+import altrdgenetics.callTimeTracker.sql.SQLitePhoneCall;
 import altrdgenetics.callTimeTracker.util.StringUtilities;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -39,7 +40,7 @@ public class MainWindowSceneController implements Initializable {
     @FXML
     private MenuItem NewPhoneCallMenuItem;
     @FXML
-    private TableView<CompanyMaintenanceTableModel> mainTable;
+    private TableView<MainWindowTableModel> mainTable;
     @FXML
     private TableColumn<MainWindowTableModel, Object> objectColumn;
     @FXML
@@ -125,7 +126,12 @@ public class MainWindowSceneController implements Initializable {
     }
     
     private void loadCallTable() {
-        //TODO: pull information from Call Table
+        ObservableList<MainWindowTableModel> list = SQLitePhoneCall.loadActivePhoneCalls();
+        mainTable.getItems().removeAll();
+        if (list != null) {
+            mainTable.setItems(list);
+        }
+        mainTable.getSelectionModel().clearSelection();
     }
     
     private void startCall() {

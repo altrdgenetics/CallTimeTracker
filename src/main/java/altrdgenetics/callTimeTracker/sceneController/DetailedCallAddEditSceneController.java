@@ -8,9 +8,12 @@ package altrdgenetics.callTimeTracker.sceneController;
 import altrdgenetics.callTimeTracker.model.sql.CompanyModel;
 import altrdgenetics.callTimeTracker.model.sql.PhoneCallModel;
 import altrdgenetics.callTimeTracker.sql.SQLiteCompany;
+import altrdgenetics.callTimeTracker.sql.SQLitePhoneCall;
+import altrdgenetics.callTimeTracker.util.DateTimeUtilities;
 import com.jfoenix.controls.JFXDatePicker;
 import com.jfoenix.controls.JFXTimePicker;
 import java.net.URL;
+import java.sql.Timestamp;
 import java.util.List;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
@@ -39,17 +42,17 @@ public class DetailedCallAddEditSceneController implements Initializable {
     @FXML
     private ComboBox companyComboBox;
     @FXML
-    private JFXDatePicker startDate;
+    private JFXDatePicker startDatePicker;
     @FXML
-    private JFXDatePicker endDate;
+    private JFXDatePicker endDatePicker;
     @FXML
-    private JFXTimePicker startTime;
+    private JFXTimePicker startTimePicker;
     @FXML
-    private JFXTimePicker endTime;
+    private JFXTimePicker endTimePicker;
     @FXML
-    private TextField duration;
+    private TextField durationTextField;
     @FXML
-    private TextArea description;
+    private TextArea descriptionTextarea;
     @FXML
     private Button editButton;
     @FXML
@@ -62,7 +65,15 @@ public class DetailedCallAddEditSceneController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        //Setup ComboBox
+        initializePanel();
+    }    
+    
+    private void initializePanel() {
+        initComboBox();
+        initPanelBinding();
+    }
+    
+    private void initComboBox() {
         StringConverter<CompanyModel> converter = new StringConverter<CompanyModel>() {
             @Override
             public String toString(CompanyModel object) {
@@ -75,7 +86,18 @@ public class DetailedCallAddEditSceneController implements Initializable {
             }
         };
         companyComboBox.setConverter(converter);
-    }    
+    }
+    
+    private void initPanelBinding() {
+        editButton.disableProperty().bind(
+                (companyComboBox.valueProperty().isNull())
+                        .or(startDatePicker.valueProperty().isNull())
+                        .or(startTimePicker.valueProperty().isNull())
+                        .or(endDatePicker.valueProperty().isNull())
+                        .or(endTimePicker.valueProperty().isNull())
+        );
+    }
+
     
     public void loadDefaults(Stage stagePassed, PhoneCallModel companyObjectPassed){
         stage = stagePassed;
@@ -132,24 +154,49 @@ public class DetailedCallAddEditSceneController implements Initializable {
     }
     
     private void loadInformation() {
-        
+
     }
     
     private void updateInformation() {
-        
+        //Get Calculated Values
+        CompanyModel company = (CompanyModel) companyComboBox.getValue();
+        Timestamp startTime = DateTimeUtilities.generateTimeStamp(startDatePicker.getValue(), startTimePicker.getValue());
+        Timestamp endTime = DateTimeUtilities.generateTimeStamp(endDatePicker.getValue(), endTimePicker.getValue());      
+               
+        //Fill Out Model
+        PhoneCallModel item = new PhoneCallModel();
+        item.setActive(true);
+        item.setCompanyid(company.getId());
+        item.setCallstarttime(startTime);
+        item.setCallendtime(endTime);
+        item.setCalldescription(descriptionTextarea.getText().trim().equals("") ? null : descriptionTextarea.getText().trim());
     }
     
     private void insertInformation() {
+        //Get Calculated Values
+        CompanyModel company = (CompanyModel) companyComboBox.getValue();
+        Timestamp startTime = DateTimeUtilities.generateTimeStamp(startDatePicker.getValue(), startTimePicker.getValue());
+        Timestamp endTime = DateTimeUtilities.generateTimeStamp(endDatePicker.getValue(), endTimePicker.getValue());      
+               
+        //Fill Out Model
+        PhoneCallModel item = new PhoneCallModel();
+        item.setId(phoneCallObject.getId());
+        item.setActive(phoneCallObject.isActive());
+        item.setCompanyid(company.getId());
+        item.setCallstarttime(startTime);
+        item.setCallendtime(endTime);
+        item.setCalldescription(descriptionTextarea.getText().trim().equals("") ? null : descriptionTextarea.getText().trim());
         
+        SQLitePhoneCall.updatePhoneCallInfoByID(item);
     }
     
     private void setPanelInformationDisabled(boolean disabled) {
         companyComboBox.setDisable(disabled);
-        startDate.setDisable(disabled);
-        endDate.setDisable(disabled);
-        startTime.setDisable(disabled);
-        endTime.setDisable(disabled);
-        description.setDisable(disabled);
+        startDatePicker.setDisable(disabled);
+        endDatePicker.setDisable(disabled);
+        startTimePicker.setDisable(disabled);
+        endTimePicker.setDisable(disabled);
+        descriptionTextarea.setDisable(disabled);
     }
     
 }
