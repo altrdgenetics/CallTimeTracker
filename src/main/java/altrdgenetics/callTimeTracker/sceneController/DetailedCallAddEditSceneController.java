@@ -14,11 +14,10 @@ import com.jfoenix.controls.JFXDatePicker;
 import com.jfoenix.controls.JFXTimePicker;
 import java.net.URL;
 import java.sql.Timestamp;
-import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.List;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -98,6 +97,23 @@ public class DetailedCallAddEditSceneController implements Initializable {
                         .or(endDatePicker.valueProperty().isNull())
                         .or(endTimePicker.valueProperty().isNull())
         );
+
+        startDatePicker.setOnAction((ActionEvent e) -> {
+            endDatePicker.setValue(startDatePicker.getValue());
+            setDurationTextfield();
+        });
+        
+        startTimePicker.setOnAction((ActionEvent e) -> {
+            setDurationTextfield();
+        });
+        
+        endDatePicker.setOnAction((ActionEvent e) -> {
+            setDurationTextfield();
+        });
+        
+        endTimePicker.setOnAction((ActionEvent e) -> {
+            setDurationTextfield();
+        });
     }
     
     public void loadDefaults(Stage stagePassed, PhoneCallModel companyObjectPassed){
@@ -106,16 +122,17 @@ public class DetailedCallAddEditSceneController implements Initializable {
         String title = "Add Phone Call";
         String buttonText = "Add";
         loadCompanyComboBox();
-        stage.setTitle(title);
-        headerLabel.setText(title);
-        editButton.setText(buttonText);
-        
+                
         if (phoneCallObject != null){
             title = "Detailed Phone Call";
             buttonText = "Update";
             loadInformation();
             setPanelInformationDisabled(true);
         }
+        
+        stage.setTitle(title);
+        headerLabel.setText(title);
+        editButton.setText(buttonText);
     }
     
     private void loadCompanyComboBox() {
@@ -147,6 +164,7 @@ public class DetailedCallAddEditSceneController implements Initializable {
                 stage.close();
                 break;
             case "Update":
+                editButton.setText("Save");
                 setPanelInformationDisabled(false);
                 break;
             default:
@@ -166,6 +184,7 @@ public class DetailedCallAddEditSceneController implements Initializable {
         endDatePicker.setValue(phoneCallObject.getCallendtime().toLocalDateTime().toLocalDate());
         endTimePicker.setValue(phoneCallObject.getCallendtime().toLocalDateTime().toLocalTime());
         descriptionTextarea.setText(phoneCallObject.getCalldescription());
+        setDurationTextfield();
     }
     
     private void insertInformation() {
@@ -189,7 +208,7 @@ public class DetailedCallAddEditSceneController implements Initializable {
         //Get Calculated Values
         CompanyModel company = (CompanyModel) companyComboBox.getValue();
         Timestamp startTime = DateTimeUtilities.generateTimeStamp(startDatePicker.getValue(), startTimePicker.getValue());
-        Timestamp endTime = DateTimeUtilities.generateTimeStamp(endDatePicker.getValue(), endTimePicker.getValue());      
+        Timestamp endTime = DateTimeUtilities.generateTimeStamp(endDatePicker.getValue(), endTimePicker.getValue());
                
         //Fill Out Model
         PhoneCallModel item = new PhoneCallModel();
@@ -210,6 +229,19 @@ public class DetailedCallAddEditSceneController implements Initializable {
         startTimePicker.setDisable(disabled);
         endTimePicker.setDisable(disabled);
         descriptionTextarea.setDisable(disabled);
+    }
+    
+    private void setDurationTextfield() {
+        if (startDatePicker.getValue() != null 
+                && startTimePicker.getValue() != null 
+                && endDatePicker.getValue() != null 
+                && endTimePicker.getValue() != null) {
+            Timestamp startTime = DateTimeUtilities.generateTimeStamp(startDatePicker.getValue(), startTimePicker.getValue());
+            Timestamp endTime = DateTimeUtilities.generateTimeStamp(endDatePicker.getValue(), endTimePicker.getValue());
+            long timeDiff = endTime.getTime() - startTime.getTime();
+                        
+            durationTextField.setText(DateTimeUtilities.convertLongToTime(timeDiff));
+        }
     }
     
 }

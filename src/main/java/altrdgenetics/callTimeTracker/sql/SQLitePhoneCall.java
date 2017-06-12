@@ -118,9 +118,8 @@ public class SQLitePhoneCall {
                 item.setCallendtime(rs.getTimestamp("callendtime"));
                 item.setCalldescription(rs.getString("calldescription"));
 
-                long timeDiff = (item.getCallendtime().getTime()) - (item.getCallstarttime().getTime());
-                
-                
+                long timeDiff = item.getCallendtime().getTime() - item.getCallstarttime().getTime();
+                                
                 list.add(
                         new MainWindowTableModel(
                                 item, 
