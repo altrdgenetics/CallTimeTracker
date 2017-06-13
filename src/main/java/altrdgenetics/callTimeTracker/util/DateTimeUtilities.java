@@ -7,7 +7,6 @@ package altrdgenetics.callTimeTracker.util;
 
 import java.sql.Timestamp;
 import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.Calendar;
 import java.util.concurrent.TimeUnit;
 
@@ -17,20 +16,20 @@ import java.util.concurrent.TimeUnit;
  */
 public class DateTimeUtilities {
     
-    public static Timestamp generateTimeStamp(LocalDate date, LocalTime time) {
+    public static Timestamp generateTimeStamp(LocalDate date, int hour, int minute, int second) {
 
         Calendar cal = Calendar.getInstance();
         cal.set(Calendar.YEAR, date.getYear());
         cal.set(Calendar.MONTH, date.getMonthValue());
         cal.set(Calendar.DAY_OF_MONTH, date.getDayOfMonth());
-        cal.set(Calendar.HOUR_OF_DAY, time.getHour());
-        cal.set(Calendar.MINUTE, time.getMinute());
-        cal.set(Calendar.SECOND, 0);
+        cal.set(Calendar.HOUR_OF_DAY, hour);
+        cal.set(Calendar.MINUTE, minute);
+        cal.set(Calendar.SECOND, second);
         cal.set(Calendar.MILLISECOND, 0);
         
         return new Timestamp(cal.getTimeInMillis());
     }
-    
+        
     /**
      * converts MILLISECONDS to [ (HR):(MIN):(SEC) ] format
      *

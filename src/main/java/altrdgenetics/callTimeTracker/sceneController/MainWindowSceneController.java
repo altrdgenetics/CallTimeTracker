@@ -8,6 +8,7 @@ import altrdgenetics.callTimeTracker.sql.SQLiteCompany;
 import altrdgenetics.callTimeTracker.sql.SQLitePhoneCall;
 import altrdgenetics.callTimeTracker.util.DateTimeUtilities;
 import java.net.URL;
+import java.sql.Timestamp;
 import java.util.List;
 import java.util.ResourceBundle;
 import javafx.application.Platform;
@@ -77,8 +78,12 @@ public class MainWindowSceneController implements Initializable {
             }
         };
         CompanyComboBox.setConverter(converter);
-    }    
-    
+
+        RecordButton.disableProperty().bind(
+                (CompanyComboBox.valueProperty().isNull())
+        );
+    }
+
     @FXML
     private void tableListener(MouseEvent event) {
         MainWindowTableModel row = mainTable.getSelectionModel().getSelectedItem();
@@ -131,10 +136,11 @@ public class MainWindowSceneController implements Initializable {
         List<CompanyModel> list = SQLiteCompany.getActiveCompanies();
         
         CompanyComboBox.getItems().clear();
-        CompanyComboBox.getItems().addAll(FXCollections.observableArrayList(new CompanyModel()));
-        
-        for (CompanyModel item : list){
-            CompanyComboBox.getItems().addAll(item);
+                
+        if (!list.isEmpty()){
+            for (CompanyModel item : list){
+                CompanyComboBox.getItems().addAll(item);
+            }
         }
     }
     
@@ -149,7 +155,7 @@ public class MainWindowSceneController implements Initializable {
     
     private void startCall() {
         callStartTime = System.currentTimeMillis();    
-        TimerLabel.setText("");
+        TimerLabel.setText("Recording...");
         RecordButton.setText("End Call");
     }
     
@@ -157,8 +163,27 @@ public class MainWindowSceneController implements Initializable {
         long callEndTime = System.currentTimeMillis();
         TimerLabel.setText(DateTimeUtilities.convertLongToTime(callEndTime - callStartTime));
         
+        insertCallInformation(callStartTime, callEndTime);
+        
         //Record call To Database
+        callStartTime = 0;
         RecordButton.setText("Start Call");
+        loadCallTable();
+    }
+    
+    private void insertCallInformation(long startTime, long endTime) {
+        //Get Calculated Values
+        CompanyModel company = (CompanyModel) CompanyComboBox.getValue();  
+               
+        //Fill Out Model
+        PhoneCallModel item = new PhoneCallModel();
+        item.setActive(true);
+        item.setCompanyid(company.getId());
+        item.setCallstarttime(new Timestamp(startTime));
+        item.setCallendtime(new Timestamp(endTime));
+        item.setCalldescription(null);
+        
+        SQLitePhoneCall.insertPhoneCall(item);
     }
     
     private void loadDetailedCallScene(){
