@@ -63,13 +63,13 @@
             <center>
                 <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                     <children>
-                        <TableView fx:id="mainTable" onMouseClicked="#tableListener" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0">
+                        <TableView fx:id="mainTable" onMouseClicked="#tableListener" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="5.0">
                      <columns>
                         <TableColumn fx:id="objectColumn" prefWidth="75.0" text="Object" visible="false" />
                         <TableColumn fx:id="startTimeColumn" editable="false" prefWidth="114.0" text="Start Time" />
+                        <TableColumn fx:id="durationColumn" editable="false" prefWidth="133.0" text="Duration" />
                         <TableColumn fx:id="companyColumn" editable="false" prefWidth="178.0" text="Company" />
                         <TableColumn fx:id="descriptionColumn" editable="false" prefWidth="202.0" text="Description" />
-                        <TableColumn fx:id="durationColumn" editable="false" prefWidth="133.0" text="Duration" />
                      </columns></TableView>
                     </children>
                 </AnchorPane>

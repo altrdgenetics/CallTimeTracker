@@ -22,6 +22,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
@@ -130,6 +132,7 @@ public class MainWindowSceneController implements Initializable {
         });
         loadCompanyComboBox();
         loadCallTable();
+        RecordButton.setGraphic(new ImageView(new Image(getClass().getResourceAsStream("/icon/green_phone.png"))));
     }
 
     private void loadCompanyComboBox() {
@@ -157,6 +160,7 @@ public class MainWindowSceneController implements Initializable {
         callStartTime = System.currentTimeMillis();    
         TimerLabel.setText("Recording...");
         RecordButton.setText("End Call");
+        RecordButton.setGraphic(new ImageView(new Image(getClass().getResourceAsStream("/icon/red_phone.png"))));
     }
     
     private void endCall() {
@@ -168,6 +172,7 @@ public class MainWindowSceneController implements Initializable {
         //Record call To Database
         callStartTime = 0;
         RecordButton.setText("Start Call");
+        RecordButton.setGraphic(new ImageView(new Image(getClass().getResourceAsStream("/icon/green_phone.png"))));
         loadCallTable();
     }
     
