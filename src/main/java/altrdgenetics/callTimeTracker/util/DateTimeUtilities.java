@@ -20,7 +20,7 @@ public class DateTimeUtilities {
 
         Calendar cal = Calendar.getInstance();
         cal.set(Calendar.YEAR, date.getYear());
-        cal.set(Calendar.MONTH, date.getMonthValue());
+        cal.set(Calendar.MONTH, date.getMonthValue() - 1); //Cal index starts at 0
         cal.set(Calendar.DAY_OF_MONTH, date.getDayOfMonth());
         cal.set(Calendar.HOUR_OF_DAY, hour);
         cal.set(Calendar.MINUTE, minute);
